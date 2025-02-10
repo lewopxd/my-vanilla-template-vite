@@ -4,8 +4,8 @@ import { fileURLToPath } from "url";
 import path from "path";
  
 
-const localhost = " http://10.0.0.156:5173/";
-const url = `${localhost}`;
+const localhost = " http://10.0.0.156:5173/";  // 
+const url = `${localhost}`;  // ${localhost}/app/pre-build/  to test in prebuild stage
 // Obtener __dirname usando ESM
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
