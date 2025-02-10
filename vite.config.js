@@ -55,6 +55,7 @@ function copyIndexHtmlPlugin() {
   };
 }
 
+/*
 export default defineConfig({
   root: resolve(__dirname, "app/pre-build"), // Carpeta base para la construcción
   build: {
@@ -70,4 +71,43 @@ export default defineConfig({
     emptyOutDir: true, // Limpiar la carpeta /dist antes de construir
   },
   plugins: [copyIndexHtmlPlugin()], // Agregar el plugin personalizado
+});
+*/
+
+export default defineConfig(({ command }) => {
+  if (command === "serve") {
+    // Configuración para `yarn dev`
+    return {
+      root: resolve(__dirname, "./app"), // Carpeta base para desarrollo
+      server: {
+        port: 5173, // Puerto para el servidor de desarrollo
+        open: true, // Abrir el navegador automáticamente
+        watch: {
+          ignored: ["**/node_modules/**", "**/dist/**"], // Ignorar cambios en estas carpetas
+        },
+      },
+    };
+  }
+
+  if (command === "build") {
+    // Configuración para `yarn build`
+    return {
+      root: resolve(__dirname, "app/pre-build"), // Carpeta base para la construcción
+      build: {
+        outDir: resolve(__dirname, "app/dist"), // Carpeta de salida
+        rollupOptions: {
+          input: getEntries(), // Entradas dinámicas (un archivo HTML por idioma)
+          output: {
+            entryFileNames: "assets/[name]-[hash].js", // Nombre de los archivos JS
+            chunkFileNames: "assets/[name]-[hash].js", // Nombre de los chunks
+            assetFileNames: "assets/[name]-[hash].[ext]", // Nombre de los assets
+          },
+        },
+        emptyOutDir: true, // Limpiar la carpeta /dist antes de construir
+      },
+      plugins: [copyIndexHtmlPlugin()], // Agregar el plugin personalizado
+    };
+  }
+
+ 
 });

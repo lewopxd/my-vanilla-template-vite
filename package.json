@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "pre-build" :"node app/translate.js" ,
-    "preview": "vite preview"
+    "preview": "vite preview --port 5000"
   },
   "devDependencies": {
     "@rollup/plugin-html": "^2.0.0",

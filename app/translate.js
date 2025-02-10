@@ -28,6 +28,7 @@ const targetDir = preBuildDir; // Ruta de destino
 const formatsToIgnore = ['.html', '.log', '.tmp']; // Extensiones de archivo a omitir
 const foldersToIgnore = ['locales', 'pages']; // Carpetas a omitir
 const overwrite = true; //  true, sobreescribe siempre
+const redirectStrict = true; //crea redireccion en cada archivo
 
 console.log(`\x1b[36m-------------------------------------------------------------------------------------------------\x1b[0m`);
 console.log(`\x1b[36m------[dev → pre-build]--------------------------------------------------------------------------\x1b[0m`);
@@ -595,6 +596,7 @@ for (const [lang, texts] of Object.entries(translations)) {
 
     // Traducir y guardar el archivo
     translateAndSaveHtml(htmlFile, outputPath, lang, texts, fallbackLanguage, labelsMap);
+   
   });
 } //--<
 
@@ -689,17 +691,19 @@ function build_HtmlContent_AppIndex(supportedLanguages) {
   let elementButton = "";
 
   supportedLanguages.forEach((lang) => {
-    elementButton += `<a href="pre-build/${lang}" class="button lang">${(lang.toUpperCase())}</a>\n`;
+    elementButton += `<a href="pre-build/${lang}/" class="button lang">${(lang.toUpperCase())}</a>\n`;
 
   });
 
   const htmlT = `
-  <!DOCTYPE html><html lang="es"><head>
+  <!DOCTYPE html>
+<html lang="es">
+
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Vanilla App</title>
   <style>
-    /* Estilos para el tema oscuro */
     body {
       margin: 0;
       font-family: Arial, sans-serif;
@@ -728,7 +732,7 @@ function build_HtmlContent_AppIndex(supportedLanguages) {
     .button-container {
       display: flex;
       flex-direction: column;
-      gap: 15px; /* Espacio entre los botones */
+      gap: 15px;
     }
 
     .button {
@@ -745,74 +749,156 @@ function build_HtmlContent_AppIndex(supportedLanguages) {
       text-align: center;
     }
 
-    #pre-builder-container{
-       gap: 5px;
+    #pre-builder-container {
+      gap: 5px;
     }
 
-    #lang-container{
-      display:   flex; /* Activa Flexbox */
+    #lang-container {
+      display: flex;
       flex-wrap: wrap;
-       gap: 5px;
+      gap: 5px;
     }
 
-    .button.lang{
+    .button.lang {
       flex: 1;
       flex: 1 1 calc(25% - 20px);
-      background-color: #480479; /* Morado Oscuro */
+      background-color: #480479;
       margin-top: 0;
       margin-bottom: 5px;
       box-sizing: border-box;
-      
-    
+
+
     }
 
     .button.lang:hover {
-      background-color: #3f006e; /* Morado Oscuro (Hover) */
+      background-color: #3f006e;
     }
-    /* Colores de los botones */
+
     .button.dev {
-      background-color: #6a0dad; /* Morado Oscuro */
+      background-color: #6a0dad;
     }
 
     .button.dev:hover {
-      background-color: #570b92; /* Morado Oscuro (Hover) */
+      background-color: #570b92;
     }
 
     .button.pre-build {
-      background-color:  #6a0dad;; /* Violeta Brillante */
+      background-color: #6a0dad;
+      ;
     }
 
     .button.pre-build:hover {
-      background-color: #570b92; /* Violeta Brillante (Hover) */
+      background-color: #570b92;
     }
 
-    .button.dist {
-      background-color:  #6a0dad;; /* Violeta Claro */
+    .dist {
+      background-color: #6a0dad;
+      ;
     }
 
     .button.dist:hover {
-      background-color: #570b92; /* Violeta Claro (Hover) */
+      background-color: #570b92;
+    }
+
+    .button.disable {
+      background-color: #303030;
+      color: #888888;
+
+      margin-bottom: 0px;
+      gap: 0px;
+    }
+
+    #button-dist-info {
+      color: #a530ff;
+      text-align: left;
+      margin-top: -10px;
+      font-weight: 100;
+      font-size: 15px;
+      visibility: hidden;
+
     }
   </style>
 </head>
+
 <body>
   <div class="card">
-    <h1>Selecciona una Carpeta</h1>
-    <p>Elige una opción para redirigir:</p>
+    <h1>Vanilla js - app/</h1>
+    <p>Select a dir:</p>
     <div class="button-container">
-      <a href="dev/pages/" class="button dev">Ir a /dev</a>
+      <a href="dev/pages/" class="button dev">Go to /dev</a>
       <div class="button-container" id="pre-builder-container">
-        <a href="pre-build/" class="button pre-build">Ir a /pre-build</a>
+        <a href="pre-build/" class="button pre-build">Go to /pre-build</a>
         <div id="lang-container">
          ${elementButton}
         </div>
       </div>
-      <a href="http://192.168.1.3:5173/" class="button dist">Ir a /dist</a>
+      <a href="http://localhost:5000/" target="_blank" class="button dist" id="button-dist">Go to /dist</a>
+      <span id="button-dist-info">First run 'yarn preview' or start a server at localhost:5000</span>
     </div>
   </div>
- 
 
-</body></html>
+
+  <script>
+
+    const submitButton = document.getElementById('button-dist');
+    const submitButtonInfo = document.getElementById('button-dist-info');
+    submitButton.classList.add("disable");
+    submitButton.classList.remove("dist");
+
+    let validate = false;
+
+    const url = submitButton.href;
+
+    async function validateLink(url) {
+      try {
+        const response = await fetch(url, { method: 'HEAD' });
+        return response.ok;  // true HTTP  200-299  
+      } catch (error) {
+        return false;
+      }
+    }
+
+
+    validateLink(url).then((isValid) => {
+      if (isValid) {
+        submitButton.disabled = false; 
+        submitButton.classList.remove("disable");
+        submitButton.classList.add("dist");
+        validate = true;
+      } else {
+        submitButton.disabled = true;
+        submitButton.classList.remove("dist");
+        validate = false;
+      }
+    });
+
+    const hoverBox = document.getElementById("button-dist");
+
+    hoverBox.addEventListener("mouseenter", () => {
+      if (!validate) {
+        submitButtonInfo.style.visibility = "visible";
+      }
+
+    });
+
+    hoverBox.addEventListener("mouseleave", () => {
+      if (!validate) {
+        submitButtonInfo.style.visibility = "hidden";
+      }
+    });
+
+     
+    hoverBox.addEventListener("click", function (event) {
+      if (!validate) {
+        event.preventDefault(); 
+      }
+
+    });
+  </script>
+
+</body>
+
+</html>
   
   `
 
