@@ -1,6 +1,39 @@
+Aquí tienes una versión actualizada del archivo `README.md` que incluye las modificaciones solicitadas:
+
+---
+
 # Vanilla HTML Multilingual Template with Vite 🌍
 
 A lightweight, multilingual-ready **Vanilla HTML** template powered by [Vite](https://vitejs.dev/). This template simplifies the creation of static websites with built-in support for multiple languages and production-ready optimizations.
+
+> **Note**: This project is intended **just for academic purposes**.
+
+---
+
+## Quick Start 🚀
+
+1. **Clone the Template**
+   ```bash
+   npx degit https://github.com/lewopxd/my-vanilla-template-vite new-template
+   cd new-template
+   ```
+
+2. **Install Dependencies**
+   ```bash
+   yarn install
+   ```
+
+3. **Translate the Site**
+   ```bash
+   yarn pre-build
+   ```
+
+4. **Start Development Server**
+   ```bash
+   yarn dev --host
+   ```
+   - The development server will run at `http://localhost:5173`.
+   - Test your multilingual site locally.
 
 ---
 
@@ -59,10 +92,7 @@ A lightweight, multilingual-ready **Vanilla HTML** template powered by [Vite](ht
    - Each language gets its own folder (e.g., `/es`, `/en`).
 
 3. **Optimization (`/dist`)**:
-   - Run `yarn build` to optimize files for production:
-     - Minify HTML, CSS, and JavaScript.
-     - Compress images.
-     - Copy shared resources to `/dist/assets`.
+   - Run `yarn build` to optimize files for production in `/dist`.
 
 4. **Deployment**:
    - Files in `/dist` are ready for deployment to a web server or CDN.
@@ -129,16 +159,6 @@ The `universal.json` file contains translations for each language. Example:
 
 ---
 
-## Resources 📚
-
-- **Shared Resources**:
-  - Images, fonts, CSS, and JS in `/dev/assets` are optimized and copied to `/dist/assets`.
-
-- **Global Resources**:
-  - Files in `/dev/public` are copied directly to `/dist` without optimization.
-
----
-
 ## Notes 📝
 
 - **Fallback Language**: If a translation is missing, the fallback language (`en`) is used.
@@ -147,4 +167,6 @@ The `universal.json` file contains translations for each language. Example:
 
 ---
 
-just for academical purppouses
+Just for academic purposes 🎓
+
+---
