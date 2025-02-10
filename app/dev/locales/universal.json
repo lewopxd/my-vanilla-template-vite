@@ -1,0 +1,61 @@
+{
+    "metadata": {
+      "file": {
+        "version": "1.0.0",
+        "author": "Development Team",
+        "created": "2023-10-01",
+        "description": "Multilingual translations for the website.",
+        "usage": "Processed by the internationalization script.",
+        "fallbackLanguage": "en"
+      },
+      "types": {
+        "lk": {
+          "description": "For wrapping text blocks using the <lk k=\"...\"> tag.",
+          "type": "plain text",
+          "example": "<lk k=\"title\">Fallback</lk>"
+        },
+        "lk-text-content": {
+          "description": "For changing the text content of an element using the lk-text-content-k=\"...\" attribute.",
+          "type": "plain text",
+          "example": "<h1 lk-text-content-k=\"description\">Fallback</h1>"
+        },
+        "label-lk": {
+          "description": "For modifying attributes (src, alt, etc.) of a tag using label-lk-*-k=\"...\".",
+          "type": "attribute",
+          "example": "<img src=\"default.png\" label-lk-src-k=\"image\">"
+        }
+      }
+    },
+    "es": {
+      "lk:lang-tag" : "es-ES",
+      "lk:title": "Mi sitio",  
+      "lk-text-content:hello": "Hola",
+      "lk-text-content:hello-desc" : "Bienvenido a tu plantila basica VANILLA HTML  by @lewop.",
+      "label-lk-style:image-flag" : "background-image: url('../assets/images/es-flag.gif');",
+      "lk:button-text" : "Haz click"
+    },
+    "en": {
+      "lk:lang-tag" : "en-UK",
+      "lk:title": "My site",
+       "lk-text-content:hello": "Hi",
+       "lk-text-content:hello-desc" : "Welcome to your basic HTML VANILLA template by @lewop.",
+      "label-lk-style:image-flag" : "background-image: url('../assets/images/en-flag.gif');",
+       "lk:button-text" : "Click Me"
+    },
+    "fr": {
+      "lk:lang-tag" : "fr-FR",
+      "lk:title": "Mon site",
+      "lk-text-content:hello": "Bonjour",
+      "lk-text-content:hello-desc": "Bienvenue sur votre modèle HTML VANILLA de base par @lewop.",
+      "label-lk-style:image-flag": "background-image: url('../assets/images/fr-flag.gif');",
+      "lk:button-text": "Cliquez-moi"
+    },
+    "de": {
+      "lk:lang-tag" : "de-GM",
+      "lk:title": "Meine Seite",
+      "lk-text-content:hello": "Hallo",
+      "lk-text-content:hello-desc": "Willkommen zu deiner grundlegenden VANILLA HTML-Vorlage von @lewop.",
+      "label-lk-style:image-flag": "background-image: url('../assets/images/de-flag.gif');",
+      "lk:button-text": "Klick mich"
+    }
+  }

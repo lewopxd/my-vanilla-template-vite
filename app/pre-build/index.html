@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Redirect</title>
+  <link rel="alternate" href="es/" hreflang="es" />
+<link rel="alternate" href="en/" hreflang="en" />
+<link rel="alternate" href="fr/" hreflang="fr" />
+<link rel="alternate" href="de/" hreflang="de" />
+  <link rel="alternate" href="en/" hreflang="x-default" />
+  <script>
+    (() => {
+      const userLang = navigator.language || navigator.userLanguage;
+      const supported = ["es","en","fr","de"];
+      const defaultLang = 'en';     
+      const redirectLang = supported.find(lang => userLang.startsWith(lang)) || defaultLang;
+      window.location.href = `${redirectLang}/`;
+    })();
+  </script>
+</head>
+<body>
+  <noscript>
+    <p>JavaScript is required to automatically redirect you. Please choose your language:</p>
+    <ul>
+      <li><a href="es/">ES</a></li>
+<li><a href="en/">EN</a></li>
+<li><a href="fr/">FR</a></li>
+<li><a href="de/">DE</a></li>
+    </ul>
+  </noscript>
+</body>
+</html>

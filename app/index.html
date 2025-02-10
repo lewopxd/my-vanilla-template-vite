@@ -1,0 +1,119 @@
+<!DOCTYPE html><html lang="es"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vanilla App</title>
+  <style>
+    /* Estilos para el tema oscuro */
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #121212;
+      color: #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .card {
+      background-color: #1e1e1e;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+      padding: 20px;
+      text-align: center;
+      width: 300px;
+    }
+
+    h1 {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    .button-container {
+      display: flex;
+      flex-direction: column;
+      gap: 15px; /* Espacio entre los botones */
+    }
+
+    .button {
+      display: inline-block;
+      width: auto;
+      padding: 12px;
+      font-size: 16px;
+      color: #ffffff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+      text-align: center;
+    }
+
+    #pre-builder-container{
+       gap: 5px;
+    }
+
+    #lang-container{
+      display:   flex; /* Activa Flexbox */
+      flex-wrap: wrap;
+       gap: 5px;
+    }
+
+    .button.lang{
+      flex: 1;
+      flex: 1 1 calc(25% - 20px);
+      background-color: #480479; /* Morado Oscuro */
+      margin-top: 0;
+      margin-bottom: 5px;
+      box-sizing: border-box;
+      
+    
+    }
+
+    .button.lang:hover {
+      background-color: #3f006e; /* Morado Oscuro (Hover) */
+    }
+    /* Colores de los botones */
+    .button.dev {
+      background-color: #6a0dad; /* Morado Oscuro */
+    }
+
+    .button.dev:hover {
+      background-color: #570b92; /* Morado Oscuro (Hover) */
+    }
+
+    .button.pre-build {
+      background-color:  #6a0dad;; /* Violeta Brillante */
+    }
+
+    .button.pre-build:hover {
+      background-color: #570b92; /* Violeta Brillante (Hover) */
+    }
+
+    .button.dist {
+      background-color:  #6a0dad;; /* Violeta Claro */
+    }
+
+    .button.dist:hover {
+      background-color: #570b92; /* Violeta Claro (Hover) */
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Selecciona una Carpeta</h1>
+    <p>Elige una opción para redirigir:</p>
+    <div class="button-container">
+      <a href="dev/pages/" class="button dev">Ir a /dev</a>
+      <div class="button-container" id="pre-builder-container">
+        <a href="pre-build/" class="button pre-build">Ir a /pre-build</a>
+        <div id="lang-container"><a href="pre-build/es" class="button lang">ES</a><a href="pre-build/en" class="button lang">EN</a><a href="pre-build/fr" class="button lang">FR</a><a href="pre-build/de" class="button lang">DE</a></div>
+      </div>
+      <a href="http://192.168.1.3:5173/" class="button dist">Ir a /dist</a>
+    </div>
+  </div>
+ 
+
+
+  
+  </body></html>
