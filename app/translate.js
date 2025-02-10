@@ -28,7 +28,8 @@ const targetDir = preBuildDir; // Ruta de destino
 const formatsToIgnore = ['.html', '.log', '.tmp']; // Extensiones de archivo a omitir
 const foldersToIgnore = ['locales', 'pages']; // Carpetas a omitir
 const overwrite = true; //  true, sobreescribe siempre
-const redirectStrict = true; //crea redireccion en cada archivo
+const redirectStrict = true; //crea redireccion en cada archivo * !unset
+//> 
 
 console.log(`\x1b[36m-------------------------------------------------------------------------------------------------\x1b[0m`);
 console.log(`\x1b[36m------[dev → pre-build]--------------------------------------------------------------------------\x1b[0m`);
