@@ -2,10 +2,10 @@ import fs from "fs";
 import puppeteer from 'puppeteer';
 import { fileURLToPath } from "url";
 import path from "path";
-import { count } from "console";
+ 
 
-const localhost = "http://localhost:5500/CC2-WEB/app";
-const url = `${localhost}/pre-build/index.html`;
+const localhost = " http://10.0.0.156:5173/";
+const url = `${localhost}`;
 // Obtener __dirname usando ESM
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -43,6 +43,7 @@ validateHtmlRedirectsWithPuppeteer(supportedLanguages);
 async function validateHtmlRedirectsWithPuppeteer(supportedLanguages) {
 let allHrefTags = false;
 let count = 0;
+let countAll = 0;
 let langsCount = supportedLanguages.length;
   try {
     // Leer el contenido del archivo HTML
@@ -93,12 +94,25 @@ let langsCount = supportedLanguages.length;
       headless: true,
       args: [`--lang=${lang}`] // Configura el idioma del navegador
     });
+
+
+
     try {
 
       const page = await browser.newPage();
        // Desactivar la caché del navegador
       await page.setCacheEnabled(false);
 
+      await page.setExtraHTTPHeaders({
+        'Accept-Language': lang  
+      });
+
+      await page.evaluateOnNewDocument((lang) => {
+        Object.defineProperty(navigator, 'language', { get: () => lang });
+        Object.defineProperty(navigator, 'languages', { get: () => [lang] });
+      }, lang);
+
+      
       // Cargar la URL inicial
       const fileUrl = url;
 
@@ -106,7 +120,7 @@ let langsCount = supportedLanguages.length;
       const detectedLanguage = await page.evaluate(() => {
         return navigator.language || navigator.userLanguage;
       });
-      console.log(`[${(count+1)}/${(langsCount)}] Setting browser language to: ${detectedLanguage}`);
+      console.log(`[${(countAll+1)}/${(langsCount)}] Setting browser language to: ${detectedLanguage}`);
 
       // Esperar a que ocurra la navegación/redirección
       await Promise.all([
@@ -138,6 +152,7 @@ let langsCount = supportedLanguages.length;
       console.error(error);
     } finally {
       await browser.close();
+      countAll++;
     }
   }
 

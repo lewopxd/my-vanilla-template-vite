@@ -9,6 +9,9 @@ lerna-debug.log*
 
 node_modules
 dist
+pre-build
+app/index.html
+updateIndexApp.js
 dist-ssr
 *.local
 
