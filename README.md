@@ -1,172 +1,104 @@
-Aquí tienes una versión actualizada del archivo `README.md` que incluye las modificaciones solicitadas:
+# Vanilla HTML + Vite Multilingual Template
 
----
+A lightweight frontend starter for building multilingual static websites with **Vanilla JavaScript, HTML/CSS and Vite**.
 
-# Vanilla HTML Multilingual Template with Vite 🌍
+The project combines a conventional Vite development workflow with a custom localization/build pipeline that generates language-specific HTML before the production build.
 
-A lightweight, multilingual-ready **Vanilla HTML** template powered by [Vite](https://vitejs.dev/). This template simplifies the creation of static websites with built-in support for multiple languages and production-ready optimizations.
+## Highlights
 
-> **Note**: This project is intended **just for academic purposes**.
+- Vanilla HTML, CSS and JavaScript.
+- Vite development server and production build.
+- JSON-based translations.
+- Custom HTML localization attributes.
+- Pre-build translation generation.
+- Asset optimization for production.
+- Optional automated translation-flow testing with Puppeteer.
 
----
-
-## Quick Start 🚀
-
-1. **Clone the Template**
-   ```bash
-   npx degit https://github.com/lewopxd/my-vanilla-template-vite new-template
-   cd new-template
-   ```
-
-2. **Install Dependencies**
-   ```bash
-   yarn install
-   ```
-
-3. **Translate the Site**
-   ```bash
-   yarn pre-build
-   ```
-
-4. **Start Development Server**
-   ```bash
-   yarn dev --host
-   ```
-   - The development server will run at `http://localhost:5173`.
-   - Test your multilingual site locally.
-
----
-
-## Features ✨
-
-- **Fast Development**: Powered by Vite for rapid development and hot module replacement (HMR).
-- **Multilingual Support**: Built-in translation system for seamless multilingual websites.
-- **Production Optimization**: Pre-configured build process to optimize assets for deployment.
-- **Easy Setup**: Simple commands to develop, translate, and deploy your project.
-
----
-
-## Folder Structure 📂
+## Architecture
 
 ```
-/app
-├── /dev                              # Development folder
-│     ├── /pages                      # Main HTML files
-│     │       ├── index.html          # Main app file
-│     │       └── /other-page         # Additional pages
-│     ├── /locales                    # Translation files
-│     │       └── universal.json      # JSON file with translations
-│     ├── /assets                     # Shared resources (optimized during build)
-│     │       ├── /images             # Images
-│     │       └── /fonts              # Fonts
-│     ├── /src                        # Source files (CSS, JS)
-│     │       ├── /css                # CSS files
-│     │       └── /js                 # JavaScript files
-│     └── /public                     # Global resources (copied directly to /dist)
-│
-├── /pre-build                        # Intermediate folder with translated HTML files
-│     ├── /es                         # Spanish version
-│     ├── /en                         # English version
-│     └── ...                         # Other languages
-│
-├── /dist                             # Final optimized folder for production
-│     ├── /assets                     # Optimized shared resources
-│     ├── /es                         # Optimized Spanish version
-│     ├── /en                         # Optimized English version
-│     └── ...                         # Other optimized languages
-│
-├── translate.js                      # Script to generate translations in `/pre-build`
-└── build.js                          # Script to optimize files in `/dist`
+dev/
+  pages/
+  locales/
+  assets/
+  src/
+
+        ↓ translation
+
+pre-build/
+  es/
+  en/
+  ...
+
+        ↓ Vite build
+
+dist/
+  es/
+  en/
+  ...
 ```
 
----
+The separation between development, localization and production output keeps the source files easy to work with while allowing the generated site to be optimized for deployment.
 
-## How It Works 🛠️
+## Quick start
 
-1. **Development (`/dev`)**:
-   - Create and modify HTML, JSON, and shared resources in `/dev`.
-   - Use custom tags like `<lk k="key">` or attributes like `label-lk-src-k="key"` for translations.
-
-2. **Translation (`/pre-build`)**:
-   - Run `yarn pre-build` to generate translated versions of your site in `/pre-build`.
-   - Each language gets its own folder (e.g., `/es`, `/en`).
-
-3. **Optimization (`/dist`)**:
-   - Run `yarn build` to optimize files for production in `/dist`.
-
-4. **Deployment**:
-   - Files in `/dist` are ready for deployment to a web server or CDN.
-
----
-
-## JSON Structure 📑
-
-The `universal.json` file contains translations for each language. Example:
-
-```json
-{
-  "metadata": {
-    "file": {
-      "fallbackLanguage": "en"
-    }
-  },
-  "es": {
-    "lk:title": "Mi sitio",
-    "lk-text-content:hello": "Hola",
-    "label-lk-src:image-flag": "../assets/images/es-flag.gif"
-  },
-  "en": {
-    "lk:title": "My site",
-    "lk-text-content:hello": "Hi",
-    "label-lk-src:image-flag": "../assets/images/en-flag.gif"
-  }
-}
+```bash
+git clone https://github.com/lewopxd/my-vanilla-template-vite.git
+cd my-vanilla-template-vite
+yarn install
+yarn pre-build
+yarn dev
 ```
 
-- **`lk:key`**: For wrapping text blocks (e.g., `<lk k="title">`).
-- **`lk-text-content:key`**: For changing text content (e.g., `<h1 lk-text-content-k="hello">`).
-- **`label-lk-*:key`**: For modifying attributes (e.g., `<img label-lk-src-k="image-flag">`).
+Production build:
 
----
+```bash
+yarn build
+```
 
-## Workflow 🚀
+Preview:
 
-1. **Develop**:
-   - Work in `/dev` using live preview tools.
+```bash
+yarn preview
+```
 
-2. **Translate**:
-   - Run `yarn pre-build` to generate translations in `/pre-build`.
+## Localization
 
-3. **Test** (Optional):
-   - Run `node testTranslate.js` to verify language redirection.
+The template uses a JSON translation structure and custom attributes such as:
 
-4. **Build**:
-   - Run `yarn build` to optimize files for production in `/dist`.
+```html
+<lk k="title">Fallback title</lk>
 
-5. **Deploy**:
-   - Upload `/dist` to your hosting provider or CDN.
+<h1 lk-text-content-k="hello">
+  Fallback text
+</h1>
 
----
+<img
+  src="default.png"
+  label-lk-src-k="image"
+  label-lk-alt-k="imageAlt"
+  alt="Fallback"
+/>
+```
 
-## Scripts 🧰
+This makes localization part of the build process rather than requiring a runtime translation framework.
 
-| Command               | Description                                      |
-|-----------------------|--------------------------------------------------|
-| `yarn dev`            | Start the development server.                   |
-| `yarn pre-build`      | Generate translated files in `/pre-build`.      |
-| `yarn build`          | Optimize files for production in `/dist`.       |
-| `node testTranslate.js` | Test language redirection (optional).         |
+## Technology
 
----
+- JavaScript
+- HTML5
+- CSS3
+- Vite
+- JSON
+- Node.js tooling
+- Puppeteer
 
-## Notes 📝
+## Status
 
-- **Fallback Language**: If a translation is missing, the fallback language (`en`) is used.
-- **Custom Attributes**: Use `label-lk-*` for dynamic attributes and `lk-text-content-k` for text content.
-- **Testing**: Use Puppeteer in `testTranslate.js` to ensure proper language redirection.
+Personal / experimental frontend tooling project.
 
----
+## Author
 
-Just for academic purposes 🎓
+**Leonardo Merchán — lewopxd**
 
----
+[GitHub](https://github.com/lewopxd) · [0zdev](https://github.com/0zdev)
